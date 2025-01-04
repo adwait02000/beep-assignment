@@ -47,7 +47,7 @@ const loginUserValidations = Joi.object({
         }),
 
     password: Joi.string()
-        .min(8)
+        .min(6)
         .required()
         .messages({
             'string.base': 'password should be a type of text',

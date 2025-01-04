@@ -3,7 +3,7 @@ import logger from '../utils/logger.util.js';
 
 export const validate = (schema) => (req, res, next) => {
     const { error } = schema.validate(req.body, {
-        abortEarly: false, // Return all validation errors
+        abortEarly: false,
     });
 
     if (error) {

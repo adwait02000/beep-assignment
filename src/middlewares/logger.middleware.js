@@ -4,7 +4,7 @@ export const requestLogger = (req, res, next) => {
     logger.info('Incoming request', {
         method: req.method,
         url: req.originalUrl,
-        headers: req.headers, // Log the request body
+        headers: req.headers,
     });
     next();
 };

@@ -11,8 +11,8 @@ export const generateToken = (userId, email) => {
 export const verifyToken = (token) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        return decoded; // Return the decoded token
+        return decoded;
     } catch (error) {
-        return null; // Return null if verification fails
+        return null;
     }
 };

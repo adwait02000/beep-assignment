@@ -1,7 +1,6 @@
 import { createLogger, format, transports } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
-// Define the daily rotation file transport
 const transport = [
     new DailyRotateFile({
         filename: 'logs/app-%DATE%.log',

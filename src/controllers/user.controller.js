@@ -47,3 +47,17 @@ export const loginUser = async (req, res) => {
         res.status(500).json({ message: 'Error logging in user', error });
     }
 };
+
+export const getAllUsers = async (_req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json({
+            message: 'Fetched all users.',
+            total: users.length,
+            users
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error while fetching users', error });
+    }
+}
