@@ -2,7 +2,7 @@ import User from '../models/user.model.js';
 import dotenv from 'dotenv';
 import { comparePassword, hashPassword } from '../utils/auth.utils.js';
 import { generateToken } from '../utils/jwt.utils.js';
-dotenv.config(); // Load environment variables
+dotenv.config();
 
 export const createUser = async (req, res) => {
     try {

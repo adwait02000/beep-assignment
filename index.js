@@ -10,8 +10,9 @@ import connectDB from './src/db/index.js';
 import { errorLogger, requestLogger } from './src/middlewares/logger.middleware.js';
 
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './src/swagger/swagger.json' assert {type: 'json'}
 
+import fs from 'fs';
+const swaggerDocument = JSON.parse(fs.readFileSync('./src/swagger/swagger.json', 'utf-8'));
 
 const app = express();
 const PORT = 5000

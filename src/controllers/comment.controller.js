@@ -3,7 +3,7 @@ import Task from '../models/task.model.js';
 import User from '../models/user.model.js';
 
 export const createComment = async (req, res, next) => {
-    const { content, created_by } = req.body;
+    const { content } = req.body;
     const { task_id } = req.params;
 
     try {

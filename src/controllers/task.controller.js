@@ -31,10 +31,10 @@ export const getAllTasks = async (req, res, next) => {
         const tasks = await Task.find(filter)
             .populate({
                 path: 'comments',
-                select: 'content created_by created_at', // Specify fields to populate
+                select: 'content created_by created_at',
                 populate: {
                     path: 'created_by',
-                    select: 'username email', // Populate commenter details
+                    select: 'username email',
                 },
             })
             .skip(pagination.skip)
@@ -69,7 +69,6 @@ export const getTaskById = async (req, res, next) => {
 };
 
 
-// Update Task
 export const updateTask = async (req, res, next) => {
     try {
         const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -88,7 +87,6 @@ export const deleteTask = async (req, res, next) => {
     try {
         const task = await Task.findById(req.params.id);
 
-        // Check if the task exists and if the logged-in user is the creator (not the assignee)
         if (!task || task.created_by.toString() !== req.user.userId.toString()) {
             const error = new Error('Task not found or you are not authorized to delete this task');
             error.statusCode = 404;
