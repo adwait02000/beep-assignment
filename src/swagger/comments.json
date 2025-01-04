@@ -1,0 +1,89 @@
+{
+	"paths": {
+		"/comments/{task_id}": {
+			"post": {
+				"summary": "Add a comment to a task",
+				"tags": ["Comments"],
+				"parameters": [
+					{
+						"name": "task_id",
+						"in": "path",
+						"description": "The ID of the task",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"content": {
+										"type": "string"
+									}
+								},
+								"required": ["content"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Comment added successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"comment": {
+											"$ref": "#/components/schemas/Comment"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Task or user not found"
+					},
+					"500": {
+						"description": "Error adding comment"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Comment": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The ID of the comment"
+					},
+					"content": {
+						"type": "string",
+						"description": "The content of the comment"
+					},
+					"created_by": {
+						"type": "string",
+						"description": "The ID of the user who created the comment"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The timestamp when the comment was created"
+					}
+				}
+			}
+		}
+	}
+}

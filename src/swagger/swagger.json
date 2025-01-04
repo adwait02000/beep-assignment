@@ -1,0 +1,570 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Task Management API",
+		"version": "1.0.0",
+		"description": "API to manage tasks for a user, including creating, updating, fetching, and deleting tasks."
+	},
+	"paths": {
+		"/users/register": {
+			"post": {
+				"summary": "Create a new user",
+				"description": "Registers a new user with a username, email, and password.",
+				"operationId": "createUser",
+				"tags": ["Users"],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"username": {
+										"type": "string",
+										"description": "The username of the user"
+									},
+									"email": {
+										"type": "string",
+										"format": "email",
+										"description": "The email of the user"
+									},
+									"password": {
+										"type": "string",
+										"description": "The password for the user account"
+									}
+								},
+								"required": ["username", "email", "password"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "User created successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"example": "User created successfully"
+										},
+										"user": {
+											"$ref": "#/components/schemas/User"
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "User already exists"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/users/login": {
+			"post": {
+				"summary": "Login a user",
+				"description": "Authenticates a user by their email and password and returns a token.",
+				"operationId": "loginUser",
+				"tags": ["Users"],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"email": {
+										"type": "string",
+										"format": "email",
+										"description": "The email of the user"
+									},
+									"password": {
+										"type": "string",
+										"description": "The password of the user"
+									}
+								},
+								"required": ["email", "password"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Login successful",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"example": "Login successful"
+										},
+										"token": {
+											"type": "string",
+											"description": "The authentication token"
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid credentials"
+					},
+					"404": {
+						"description": "User not found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/tasks": {
+			"post": {
+				"summary": "Create a new task",
+				"description": "Creates a new task with the provided data.",
+				"operationId": "createTask",
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"tags": ["Tasks"],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"title": {
+										"type": "string",
+										"description": "The title of the task"
+									},
+									"description": {
+										"type": "string",
+										"description": "A description of the task"
+									},
+									"due_date": {
+										"type": "string",
+										"format": "date",
+										"description": "The due date of the task"
+									},
+									"priority": {
+										"type": "string",
+										"description": "The priority of the task"
+									},
+									"status": {
+										"type": "string",
+										"description": "The status of the task"
+									},
+									"assigned_to": {
+										"type": "string",
+										"description": "The ID of the user to whom the task is assigned"
+									}
+								},
+								"required": [
+									"title",
+									"description",
+									"due_date",
+									"priority",
+									"status",
+									"assigned_to"
+								]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Task created successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Task"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/tasks": {
+			"get": {
+				"summary": "Get all tasks",
+				"description": "Retrieves all tasks assigned to or created by the logged-in user, with pagination and filtering options.",
+				"operationId": "getAllTasks",
+				"tags": ["Tasks"],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number for pagination",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"default": 1
+						}
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "The number of tasks to retrieve per page",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"default": 10
+						}
+					},
+					{
+						"name": "filter",
+						"in": "query",
+						"description": "Filter parameters for querying tasks",
+						"required": false,
+						"schema": {
+							"type": "object",
+							"additionalProperties": true
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "A list of tasks",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"total": {
+											"type": "integer",
+											"description": "Total number of tasks"
+										},
+										"page": {
+											"type": "integer",
+											"description": "Current page number"
+										},
+										"limit": {
+											"type": "integer",
+											"description": "Number of tasks per page"
+										},
+										"tasks": {
+											"type": "array",
+											"items": {
+												"$ref": "#/components/schemas/Task"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/tasks/{id}": {
+			"get": {
+				"summary": "Get a task by ID",
+				"description": "Fetches a specific task by its ID.",
+				"operationId": "getTaskById",
+				"tags": ["Tasks"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The ID of the task",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Task found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Task"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Task not found or unauthorized"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			},
+			"put": {
+				"summary": "Update a task",
+				"description": "Updates the details of an existing task.",
+				"operationId": "updateTask",
+				"tags": ["Tasks"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The ID of the task",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Task"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Task updated successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Task"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Task not found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			},
+			"delete": {
+				"summary": "Delete a task",
+				"description": "Deletes a specific task by its ID.",
+				"operationId": "deleteTask",
+				"tags": ["Tasks"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "The ID of the task",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Task deleted successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"example": "Task deleted successfully"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Task not found or unauthorized"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/comments/{task_id}": {
+			"post": {
+				"summary": "Create a comment for a task",
+				"description": "Adds a new comment to a specific task. Requires task ID and user information.",
+				"operationId": "createComment",
+				"tags": ["Comments"],
+				"parameters": [
+					{
+						"name": "task_id",
+						"in": "path",
+						"required": true,
+						"description": "The ID of the task to which the comment is being added",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"content": {
+										"type": "string",
+										"description": "The content of the comment"
+									}
+								},
+								"required": ["content"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Comment added successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string",
+											"example": "Comment added successfully"
+										},
+										"comment": {
+											"$ref": "#/components/schemas/Comment"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Task not found or User not found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"BearerAuth": {
+				"type": "apiKey",
+				"in": "header",
+				"name": "Authorization",
+				"description": "Use the token received after logging in (e.g., 'Bearer <token>')"
+			}
+		},
+		"schemas": {
+			"Task": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The ID of the task"
+					},
+					"title": {
+						"type": "string",
+						"description": "The title of the task"
+					},
+					"description": {
+						"type": "string",
+						"description": "A description of the task"
+					},
+					"due_date": {
+						"type": "string",
+						"format": "date",
+						"description": "The due date of the task"
+					},
+					"priority": {
+						"type": "string",
+						"description": "The priority of the task"
+					},
+					"status": {
+						"type": "string",
+						"description": "The status of the task"
+					},
+					"created_by": {
+						"type": "string",
+						"description": "ID of the user who created the task"
+					},
+					"assigned_to": {
+						"type": "string",
+						"description": "ID of the user to whom the task is assigned"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"due_date",
+					"priority",
+					"status",
+					"assigned_to"
+				]
+			},
+			"Comment": {
+				"type": "object",
+				"properties": {
+					"content": {
+						"type": "string",
+						"description": "The content of the comment"
+					},
+					"created_by": {
+						"type": "string",
+						"description": "The ID of the user who created the comment"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The date and time when the comment was created"
+					}
+				},
+				"required": ["content", "created_by", "created_at"]
+			},
+			"User": {
+				"type": "object",
+				"properties": {
+					"username": {
+						"type": "string",
+						"description": "The username of the user"
+					},
+					"email": {
+						"type": "string",
+						"format": "email",
+						"description": "The email of the user"
+					},
+					"password": {
+						"type": "string",
+						"description": "The hashed password of the user"
+					}
+				},
+				"required": ["username", "email", "password"]
+			}
+		}
+	}
+}

@@ -1,0 +1,4 @@
+2025-01-03 23:56:21 [INFO]: Incoming request | Endpoint: POST /api/comments/6776eea359bc3fc53f99eb62 | Metadata: {"method":"POST","url":"/api/comments/6776eea359bc3fc53f99eb62","headers":{"content-type":"application/json","user-agent":"PostmanRuntime/7.43.0","accept":"*/*","cache-control":"no-cache","postman-token":"6d27e207-4f12-4667-906b-56db272542a2","host":"localhost:5000","accept-encoding":"gzip, deflate, br","connection":"keep-alive","content-length":"72"}}
+2025-01-03 23:56:21 [ERROR]: Error occurred | Endpoint: POST /api/comments/6776eea359bc3fc53f99eb62 | Stack: ReferenceError: Coment is not defined
+    at createComment (file:///Users/apple/Desktop/beep_assignment/src/controllers/comment.controller.js:20:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) | Metadata: {"method":"POST","url":"/api/comments/6776eea359bc3fc53f99eb62","error":"Coment is not defined"}
