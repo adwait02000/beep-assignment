@@ -1,0 +1,667 @@
+{
+	"info": {
+		"_postman_id": "57a01ec9-161e-472e-afda-e8dd196b3c02",
+		"name": "BEEP APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28002412"
+	},
+	"item": [
+		{
+			"name": "Task APIs",
+			"item": [
+				{
+					"name": "Create a Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{bearerToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\":\"third task by io\",\n  \"description\": \"get on a bike\",\n  \"due_date\": \"2025-01-10T10:00:00Z\",\n  \"priority\": \"low\",\n  \"status\": \"pending\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/tasks"
+					},
+					"response": [
+						{
+							"name": "Create a Task",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"walk the dog\",\n  \"description\": \"walk the dog the full stack assignment\",\n  \"due_date\": \"2025-01-10T10:00:00Z\",\n  \"priority\": \"low\",\n  \"status\": \"pending\",\n  \"created_by\": \"60d4b3b7f69c5b2f8e2fd45a\",  // Replace with actual ObjectId\n  \"assigned_to\": \"60d4b3b7f69c5b2f8e2fd45b\" // Replace with actual user ID from the User collection\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/task"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "289"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"121-0dAzGnaUOUhk3QqVBiz92RC+u+A\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Jan 2025 19:53:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"walk the dog\",\n    \"description\": \"walk the dog the full stack assignment\",\n    \"due_date\": \"2025-01-10T10:00:00.000Z\",\n    \"priority\": \"low\",\n    \"status\": \"pending\",\n    \"created_by\": \"60d4b3b7f69c5b2f8e2fd45a\",\n    \"assigned_to\": \"60d4b3b7f69c5b2f8e2fd45b\",\n    \"comments\": [],\n    \"_id\": \"6776eea359bc3fc53f99eb62\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all Tasks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{bearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tasks?priority=high&limit=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "priority",
+									"value": "high"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all Tasks",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/task"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "874"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36a-iosBBDlraaKRSFZvvfzdYJj3GtY\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Jan 2025 19:55:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"6776ee7459bc3fc53f99eb60\",\n        \"title\": \"Complete Assignment\",\n        \"description\": \"Complete the full stack assignment\",\n        \"due_date\": \"2025-01-10T10:00:00.000Z\",\n        \"priority\": \"low\",\n        \"status\": \"pending\",\n        \"created_by\": \"60d4b3b7f69c5b2f8e2fd45a\",\n        \"assigned_to\": \"60d4b3b7f69c5b2f8e2fd45b\",\n        \"comments\": [],\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6776eea359bc3fc53f99eb62\",\n        \"title\": \"walk the dog\",\n        \"description\": \"walk the dog the full stack assignment\",\n        \"due_date\": \"2025-01-10T10:00:00.000Z\",\n        \"priority\": \"low\",\n        \"status\": \"pending\",\n        \"created_by\": \"60d4b3b7f69c5b2f8e2fd45a\",\n        \"assigned_to\": \"60d4b3b7f69c5b2f8e2fd45b\",\n        \"comments\": [],\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6776eefd59bc3fc53f99eb64\",\n        \"title\": \"walk the dog\",\n        \"description\": \"walk the dog the full stack assignment\",\n        \"due_date\": \"2025-01-10T10:00:00.000Z\",\n        \"priority\": \"low\",\n        \"status\": \"pending\",\n        \"created_by\": \"60d4b3b7f69c5b2f8e2fd45a\",\n        \"assigned_to\": \"60d4b3b7f69c5b2f8e2fd45b\",\n        \"comments\": [],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get a Task by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{bearerToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/tasks/67783cea2e34862a314f73ec"
+					},
+					"response": [
+						{
+							"name": "Get a Task by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/task/6776f03adecc933a461faa35"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "281"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"119-ZnM9uOhz1nnMjXHq7/N9RZrQJdw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Jan 2025 20:04:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"6776f03adecc933a461faa35\",\n    \"title\": \"done\",\n    \"description\": \"walk the dog the full stack assignment\",\n    \"due_date\": \"2025-01-10T10:00:00.000Z\",\n    \"priority\": \"low\",\n    \"status\": \"pending\",\n    \"created_by\": \"60d4b3b7f69c5b2f8e2fd45a\",\n    \"assigned_to\": \"60d4b3b7f69c5b2f8e2fd45b\",\n    \"comments\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete a Task by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{bearerToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/api/tasks/67783cea2e34862a314f73ec"
+					},
+					"response": [
+						{
+							"name": "Delete a Task by ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:5000/task/67770042db6491b07f77e0f0"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"27-urf4l4W7aUjEqcMghGgrIBDtf0M\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 Jan 2025 21:17:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Task deleted successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update a Task by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{bearerToken}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\":\"updated the task\",\n  \"due_date\": \"2025-01-10T10:00:00Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/tasks/677960256d85af66df1f51c3"
+					},
+					"response": [
+						{
+							"name": "Update a Task by ID",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"updated the task\",\n  \"due_date\": \"2025-01-10T10:00:00Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/tasks/677960256d85af66df1f51c3"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 04 Jan 2025 17:29:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "187"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Ray",
+									"value": "8fccf36c78093006-BOM"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"11a-SlNm6c6NQMDGNisglV76sQN/zzk\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "rndr-id",
+									"value": "40372fde-1cb8-4669"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"677960256d85af66df1f51c3\",\n    \"title\": \"updated the task\",\n    \"description\": \"testing render asdasd asdas\",\n    \"due_date\": \"2025-01-10T10:00:00.000Z\",\n    \"priority\": \"low\",\n    \"status\": \"pending\",\n    \"created_by\": \"67795f236d85af66df1f51af\",\n    \"assigned_to\": \"67795f236d85af66df1f51af\",\n    \"comments\": [],\n    \"__v\": 0\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User APIs",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Register User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"brucewayne\",\n  \"email\": \"wayne@gmail.com\",\n  \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/users/register"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "291"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"123-CdJfPqLzEKN+scH+rCPe6bGlGJs\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Jan 2025 19:11:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User created successfully\",\n    \"user\": {\n        \"username\": \"brucewayne\",\n        \"email\": \"wayne@gmail.com\",\n        \"password\": \"$2a$10$mebMSAZPn8lZ6Uq4ccQjDeY.2SVNmjajDfZ/YISMl8PJupOpqfrr6\",\n        \"_id\": \"67783662d888f930656d2bdb\",\n        \"createdAt\": \"2025-01-03T19:11:30.888Z\",\n        \"updatedAt\": \"2025-01-03T19:11:30.888Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/users"
+					},
+					"response": [
+						{
+							"name": "Get All Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:5000/users"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 04 Jan 2025 17:35:31 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "404"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Ray",
+									"value": "8fccfc4cfd704737-BOM"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"313-xyNM0p+/yAgARKXkKeK8Fji/X3M\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "rndr-id",
+									"value": "28f5e2d3-2b5e-40ad"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Fetched all users.\",\n    \"total\": 3,\n    \"users\": [\n        {\n            \"_id\": \"67783662d888f930656d2bdb\",\n            \"username\": \"brucewayne\",\n            \"email\": \"wayne@gmail.com\",\n            \"password\": \"$2a$10$mebMSAZPn8lZ6Uq4ccQjDeY.2SVNmjajDfZ/YISMl8PJupOpqfrr6\",\n            \"createdAt\": \"2025-01-03T19:11:30.888Z\",\n            \"updatedAt\": \"2025-01-03T19:11:30.888Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"67783d0c2e34862a314f73f0\",\n            \"username\": \"robin\",\n            \"email\": \"robin@gmail.com\",\n            \"password\": \"$2a$10$IlSNc41rw4jn/nMKluB2feshNOl2duLkbx2AtYV.q.YIITUL9HOY.\",\n            \"createdAt\": \"2025-01-03T19:39:56.375Z\",\n            \"updatedAt\": \"2025-01-03T19:39:56.375Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"67795f236d85af66df1f51af\",\n            \"username\": \"testrender\",\n            \"email\": \"testrender@gmail.com\",\n            \"password\": \"$2a$10$K0ImRhbaZeVzeCecOYHdruQuJcwSJpZKlMYVNW4ZHmi4zkc4OM1Ty\",\n            \"createdAt\": \"2025-01-04T16:17:39.189Z\",\n            \"updatedAt\": \"2025-01-04T16:17:39.189Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"wayne@gmail.com\",\n  \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/users/login"
+					},
+					"response": [
+						{
+							"name": "Login User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"testrender@gmail.com\",\n  \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:5000/users/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 04 Jan 2025 17:29:15 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "223"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Ray",
+									"value": "8fccf3171c3a3006-BOM"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"102-7t9Xdi/qMVNNmOhp+s2acrPXlzQ\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "rndr-id",
+									"value": "fc70b266-7e8b-4c39"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Login successful\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc5NWYyMzZkODVhZjY2ZGYxZjUxYWYiLCJlbWFpbCI6InRlc3RyZW5kZXJAZ21haWwuY29tIiwiaWF0IjoxNzM2MDExNzU1LCJleHAiOjE3MzYwMTUzNTV9._3X0_DcGL39h7F28KBaG-XT0CIhymmu3Ub8QJpPkr1g\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Comment APIs",
+			"item": [
+				{
+					"name": "Add Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{bearerToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"second comment of the day\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/comments/677838569b036cc6159a6630"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
