@@ -20,7 +20,11 @@ The Task Management API allows users to manage tasks in a project management sys
   Password: password
   ```
 - Swagger Doc (API Documentation) - ```https://beep-assignment.onrender.com/api-docs/```
-
+- I have also attached postman collection (json file) in the repo itself.
+- While testing the APIs add below environment variables in Postman
+  - ```baseUrl``` (use Base URL mentioned above)
+  - ```bearerToken``` (you will get this after login with test credentials) 
+    
 ## Local Setup
 
 ### Prerequisites
