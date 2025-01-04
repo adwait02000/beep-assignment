@@ -19,6 +19,7 @@ The Task Management API allows users to manage tasks in a project management sys
   Username: wayne@gmail.com
   Password: password
   ```
+- Swagger Doc (API Documentation) - ```https://beep-assignment.onrender.com/api-docs/```
 
 ## Local Setup
 
